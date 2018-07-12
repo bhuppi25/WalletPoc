@@ -43,6 +43,7 @@ public class RetrofitAdapter {
                 return chain.proceed(request);
             }
         }).addInterceptor(getLoggingInterceptor()).build();
+        
 
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(baseUrl)
