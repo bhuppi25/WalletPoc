@@ -4,7 +4,10 @@ apply plugin: 'kotlin-android'
 
 apply plugin: 'kotlin-android-extensions'
 
-
+def BOOLEAN = "boolean"
+def TRUE = "true"
+def FALSE = "false"
+def IS_LOG_ENABLED = "isLogEnabled"
 
 android {
     compileSdkVersion rootProject.androidCompileSdkVersion
@@ -18,9 +21,15 @@ android {
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
+        debug {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            buildConfigField(BOOLEAN, IS_LOG_ENABLED, TRUE)
+        }
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            buildConfigField(BOOLEAN, IS_LOG_ENABLED, FALSE)
         }
     }
 
@@ -37,4 +46,10 @@ dependencies {
 
     // Retrofit & OkHttp
     implementation "com.squareup.retrofit2:retrofit:${rootProject.retrofitVersion}"
+
+    implementation 'com.squareup.okhttp3:logging-interceptor:3.4.1'
+
+    implementation 'com.fasterxml.jackson.core:jackson-core:2.9.1'
+    implementation 'com.fasterxml.jackson.core:jackson-annotations:2.9.1'
+    implementation 'com.squareup.retrofit2:converter-jackson:2.3.0'
 }
